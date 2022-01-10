@@ -1,0 +1,27 @@
+.Navbar {
+    background: #111111;
+    padding: 0 40px;
+    color: white;
+    height: 50px;
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 70%;
+    justify-content: center;
+    position: relative;
+}
+
+.Navbar h2 {
+    color: rgba(255, 255, 255, 0.849);
+}
+
+.Navbar button {
+    color: rgb(204, 204, 204);
+    background: #111111;
+    cursor: pointer;
+    border: none;
+}
+
+.Navbar button:hover {
+    color: rgb(255, 255, 255);
+}
