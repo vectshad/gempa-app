@@ -28,8 +28,15 @@ function Dashboard() {
         return `${day}-${month}-${year}  ${hour}:${minute}:${second}`
     }
 
-    const handleDateTimeClick = () => {
-        console.log("HH")
+    const handleDateTimeClick = (e) => {
+        if(e === "felt") {
+            const sort = feltEarthquake.slice().reverse();
+            setFeltEarthquake(sort);
+        }
+        if(e === "recent") {
+            const sort = recentEarthquake.slice().reverse();
+            setRecentEarthquake(sort);
+        }
     }
 
     useEffect(() => {
@@ -73,18 +80,18 @@ function Dashboard() {
 
     if (!recentEarthquake || !feltEarthquake) return null;
     return (
-        <div>
+        <div className="Dashboard">
             <Navbar />
             <div className="Container">
                 <h1>Dashboard</h1>
-                
-                <div className="md-5">
+                <div className="mt-3 md-5">
+                    <h3>Gempa Bumi Terkini</h3>
                     <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Jam</th>
-                                <th className="Clickable" onClick={handleDateTimeClick} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
+                                <th className="Clickable" onClick={() => handleDateTimeClick("recent")} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
                                 <th scope="col">Koordinat</th>
                                 <th scope="col">Lintang</th>
                                 <th scope="col">Bujur</th>
@@ -112,13 +119,14 @@ function Dashboard() {
                         </tbody>
                     </Table>
                 </div>
-                <div>
+                <div className="mt-3">
+                    <h3>Gempa Bumi Dirasakan</h3>
                     <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Jam</th>
-                                <th className="Clickable" onClick={handleDateTimeClick} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
+                                <th className="Clickable" onClick={() => handleDateTimeClick("felt")} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
                                 <th scope="col">Koordinat</th>
                                 <th scope="col">Lintang</th>
                                 <th scope="col">Bujur</th>

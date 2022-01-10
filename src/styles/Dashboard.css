@@ -1,5 +1,9 @@
+.Dashboard{
+    background-color: rgb(224, 224, 224);
+}
+
 .Container {
-    margin: 40px auto;
+    margin: 40px auto 0 auto;
     padding: 10px;
     width: 70%;
     background-color: white;
