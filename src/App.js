@@ -3,6 +3,7 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
     return (  
