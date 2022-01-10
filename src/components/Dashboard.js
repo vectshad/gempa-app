@@ -40,12 +40,11 @@ function Dashboard() {
         }
     }
 
-    const handleFilter = (e) => {
+    const handleFilter = () => {
         setFilter(!filter)
     }
 
     useEffect(() => {
-        const d = new Date();
         const getFeltEarthquake = async () => {
             try {
                 const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json");
