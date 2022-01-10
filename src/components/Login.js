@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../styles/Login.css"
@@ -16,6 +16,10 @@ function Login() {
             localStorage.setItem("isAuthenticated", "true");
             navigate("/")
         }
+    }
+
+    if (localStorage.getItem("isAuthenticated") === "true") {
+        return <Navigate to="/" />
     }
 
     return (

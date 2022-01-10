@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -10,8 +10,9 @@ function App() {
         <div className="App">
         <Router>
             <Routes>
-                <Route path="/" element={<ProtectedRoute component={Dashboard} />}/>
+                <Route exact path="/" element={<ProtectedRoute component={Dashboard} />}/>
                 <Route path="/login" element={<Login />} />
+                <Route path="*" element={<Navigate to="/login" />}/>
             </Routes>
         </Router>
         </div>
