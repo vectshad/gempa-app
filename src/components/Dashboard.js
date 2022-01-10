@@ -42,12 +42,10 @@ function Dashboard() {
 
     const handleFilter = (e) => {
         setFilter(!filter)
-        console.log(filter)
     }
 
     useEffect(() => {
         const d = new Date();
-        console.log(changeDateFormat(d));
         const getFeltEarthquake = async () => {
             try {
                 const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json");
@@ -55,9 +53,7 @@ function Dashboard() {
                 if (res.status === 200) {
                     for (var i = 0; i < data.length; i++) {
                         data[i].DateTime = changeDateFormat(data[i].DateTime); 
-                    }
-                    console.log(data);
-                
+                    }                
                     setFeltEarthquake(data);
                 }
             } catch(error) {
@@ -72,8 +68,6 @@ function Dashboard() {
                     for (var i = 0; i < data.length; i++) {
                         data[i].DateTime = changeDateFormat(data[i].DateTime); 
                     }
-                    console.log(data);
-                    
                     setRecentEarthquake(data);
                 }
             } catch(error) {
@@ -170,7 +164,7 @@ function Dashboard() {
             </div>
         </div>
     )
-    
+
     if (!filter) return (
         <div className="Dashboard">
             <Navbar />
