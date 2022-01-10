@@ -8,13 +8,35 @@ function Dashboard() {
     const [feltEarthquake, setFeltEarthquake] = useState();
     const [recentEarthquake, setRecentEarthquake] = useState();
 
+    const changeDateFormat = (DateTime) => {
+        var date = new Date(DateTime);
+        var day = date.getDate();
+        var month = date.getMonth()+1;
+        var year = date.getFullYear();
+        var hour = date.getHours();
+        var minute= date.getMinutes();
+        var second =date.getSeconds();
+
+        if (day < 10) {
+            day = "0" + day;
+          }
+        if (month < 10) {
+            month = "0" + month;
+        }
+        return `${day}-${month}-${year}  ${hour}:${minute}:${second}`
+    }
+
     const getFeltEarthquake = async () => {
         try {
             const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json");
-            const data =  await res.data;
+            const data = await res.data.Infogempa.gempa;
             if (res.status === 200) {
-                console.log(data.Infogempa.gempa);
-                setFeltEarthquake(data.Infogempa.gempa);
+                for (var i = 0; i < data.length; i++) {
+                    data[i].DateTime = changeDateFormat(data[i].DateTime); 
+                }
+                console.log(data);
+            
+                setFeltEarthquake(data);
             }
         } catch(error) {
             console.log(error)
@@ -23,16 +45,22 @@ function Dashboard() {
     const getRecentEarthquake = async () => {
         try {
             const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json");
-            const data =  await res.data;
+            const data = await res.data.Infogempa.gempa;
             if (res.status === 200) {
-                console.log(data.Infogempa.gempa);
-                setRecentEarthquake(data.Infogempa.gempa);
+                for (var i = 0; i < data.length; i++) {
+                    data[i].DateTime = changeDateFormat(data[i].DateTime); 
+                }
+                console.log(data);
+                
+                setRecentEarthquake(data);
             }
         } catch(error) {
             console.log(error)
         }
     }
     useEffect(() => {
+        const d = new Date();
+        console.log(changeDateFormat(d));
         getFeltEarthquake()
         getRecentEarthquake()
     }, [])
@@ -43,7 +71,7 @@ function Dashboard() {
             <div className="Container">
                 <h1>Dashboard</h1>
                 <div className="md-5">
-                    <Table responsive striped bordered>
+                    <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
                                 <th scope="col">Tanggal</th>
@@ -77,7 +105,7 @@ function Dashboard() {
                     </Table>
                 </div>
                 <div>
-                    <Table responsive striped bordered>
+                    <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
                                 <th scope="col">Tanggal</th>
