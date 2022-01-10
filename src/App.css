@@ -3,3 +3,7 @@ body,p,a,ul,li {
   padding:0;
   text-decoration: none;
 }
+
+.App {
+  background-color: rgb(224, 224, 224);
+}
