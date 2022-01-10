@@ -9,6 +9,7 @@ import { faSort } from '@fortawesome/free-solid-svg-icons'
 function Dashboard() {
     const [feltEarthquake, setFeltEarthquake] = useState();
     const [recentEarthquake, setRecentEarthquake] = useState();
+    const [filter, setFilter] = useState(false);
 
     const changeDateFormat = (DateTime) => {
         var date = new Date(DateTime);
@@ -37,6 +38,11 @@ function Dashboard() {
             const sort = recentEarthquake.slice().reverse();
             setRecentEarthquake(sort);
         }
+    }
+
+    const handleFilter = (e) => {
+        setFilter(!filter)
+        console.log(filter)
     }
 
     useEffect(() => {
@@ -79,13 +85,105 @@ function Dashboard() {
     }, [])
 
     if (!recentEarthquake || !feltEarthquake) return null;
-    return (
+    
+    if (filter) return (
         <div className="Dashboard">
             <Navbar />
             <div className="Container">
                 <h1>Dashboard</h1>
-                <div className="mt-3 md-5">
+                <div className="mt-3 mb-3">
                     <h3>Gempa Bumi Terkini</h3>
+                    <div className="form-check mt-2 mb-2">
+                        <input onClick={handleFilter} className="form-check-input" type="checkbox" value="" />
+                        <label className="form-check-label">
+                            Filter Potensi
+                        </label>
+                    </div>
+                    <Table responsive striped bordered size="sm">
+                        <thead className="Dark">
+                            <tr>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jam</th>
+                                <th className="Clickable" onClick={() => handleDateTimeClick("recent")} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
+                                <th scope="col">Koordinat</th>
+                                <th scope="col">Lintang</th>
+                                <th scope="col">Bujur</th>
+                                <th scope="col">Wilayah</th>
+                                <th scope="col">Magnitude</th>
+                                <th scope="col">Kedalaman</th>
+                                <th scope="col">Potensi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {recentEarthquake.filter(earthquake=> earthquake.Potensi !== "Tidak berpotensi tsunami").map((earthquake, index) =>
+                            <tr key={index}>
+                                <td>{earthquake.Tanggal}</td>
+                                <td>{earthquake.Jam}</td>
+                                <td>{earthquake.DateTime}</td>
+                                <td>{earthquake.Coordinates}</td>
+                                <td>{earthquake.Lintang}</td>
+                                <td>{earthquake.Bujur}</td>
+                                <td>{earthquake.Wilayah}</td>
+                                <td>{earthquake.Magnitude}</td>
+                                <td>{earthquake.Kedalaman}</td>
+                                <td>{earthquake.Potensi}</td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </Table>
+                </div>
+                <div className="mt-3">
+                    <h3>Gempa Bumi Dirasakan</h3>
+                    <Table responsive striped bordered size="sm">
+                        <thead className="Dark">
+                            <tr>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jam</th>
+                                <th className="Clickable" onClick={() => handleDateTimeClick("felt")} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
+                                <th scope="col">Koordinat</th>
+                                <th scope="col">Lintang</th>
+                                <th scope="col">Bujur</th>
+                                <th scope="col">Wilayah</th>
+                                <th scope="col">Magnitude</th>
+                                <th scope="col">Kedalaman</th>
+                                <th scope="col">Dirasakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {feltEarthquake.map((earthquake, index) =>
+                            <tr key={index}>
+                                <td>{earthquake.Tanggal}</td>
+                                <td>{earthquake.Jam}</td>
+                                <td>{earthquake.DateTime}</td>
+                                <td>{earthquake.Coordinates}</td>
+                                <td>{earthquake.Lintang}</td>
+                                <td>{earthquake.Bujur}</td>
+                                <td>{earthquake.Wilayah}</td>
+                                <td>{earthquake.Magnitude}</td>
+                                <td>{earthquake.Kedalaman}</td>
+                                <td>{earthquake.Dirasakan}</td>
+                            </tr>
+                            )}
+                        </tbody>
+                    </Table>
+                </div>
+            </div>
+        </div>
+    )
+    
+    if (!filter) return (
+        <div className="Dashboard">
+            <Navbar />
+            <div className="Container">
+                <h1>Dashboard</h1>
+                <div className="mt-3 mb-3">
+                    <h3>Gempa Bumi Terkini</h3>
+                    <div className="form-check mt-2 mb-2">
+                        <input onClick={handleFilter} className="form-check-input" type="checkbox" value="" />
+                        <label className="form-check-label">
+                            Filter Potensi
+                        </label>
+                    </div>
                     <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
