@@ -26,45 +26,46 @@ function Dashboard() {
         return `${day}-${month}-${year}  ${hour}:${minute}:${second}`
     }
 
-    const getFeltEarthquake = async () => {
-        try {
-            const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json");
-            const data = await res.data.Infogempa.gempa;
-            if (res.status === 200) {
-                for (var i = 0; i < data.length; i++) {
-                    data[i].DateTime = changeDateFormat(data[i].DateTime); 
-                }
-                console.log(data);
-            
-                setFeltEarthquake(data);
-            }
-        } catch(error) {
-            console.log(error)
-        }
-    }
-    const getRecentEarthquake = async () => {
-        try {
-            const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json");
-            const data = await res.data.Infogempa.gempa;
-            if (res.status === 200) {
-                for (var i = 0; i < data.length; i++) {
-                    data[i].DateTime = changeDateFormat(data[i].DateTime); 
-                }
-                console.log(data);
-                
-                setRecentEarthquake(data);
-            }
-        } catch(error) {
-            console.log(error)
-        }
-    }
     useEffect(() => {
         const d = new Date();
         console.log(changeDateFormat(d));
+        const getFeltEarthquake = async () => {
+            try {
+                const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempadirasakan.json");
+                const data = await res.data.Infogempa.gempa;
+                if (res.status === 200) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].DateTime = changeDateFormat(data[i].DateTime); 
+                    }
+                    console.log(data);
+                
+                    setFeltEarthquake(data);
+                }
+            } catch(error) {
+                console.log(error)
+            }
+        }
+        const getRecentEarthquake = async () => {
+            try {
+                const res = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/gempaterkini.json");
+                const data = await res.data.Infogempa.gempa;
+                if (res.status === 200) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].DateTime = changeDateFormat(data[i].DateTime); 
+                    }
+                    console.log(data);
+                    
+                    setRecentEarthquake(data);
+                }
+            } catch(error) {
+                console.log(error)
+            }
+        }
         getFeltEarthquake()
         getRecentEarthquake()
     }, [])
-    if (!recentEarthquake) return null;
+    
+    if (!recentEarthquake || !feltEarthquake) return null;
     return (
         <div>
             <Navbar />

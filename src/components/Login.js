@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import "../styles/Login.css"
 
 function Login() {
