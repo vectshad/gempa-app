@@ -1,0 +1,10 @@
+.Container {
+    margin: 40px auto;
+    padding: 10px;
+    width: 70%;
+}
+
+.Dark {
+    background-color: #111111;
+    color: white;
+}
