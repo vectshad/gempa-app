@@ -21,4 +21,4 @@ You may also see any lint errors in the console.
 ### Deployment
 
 Deployed on heroku \
-https://dashboard.heroku.com/apps/gempa-app/deploy/github
+https://gempa-app.herokuapp.com/
