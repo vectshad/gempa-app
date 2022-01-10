@@ -3,6 +3,8 @@ import Navbar from "./Navbar";
 import axios from "axios";
 import "../styles/Dashboard.css";
 import { Table } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSort } from '@fortawesome/free-solid-svg-icons'
 
 function Dashboard() {
     const [feltEarthquake, setFeltEarthquake] = useState();
@@ -24,6 +26,10 @@ function Dashboard() {
             month = "0" + month;
         }
         return `${day}-${month}-${year}  ${hour}:${minute}:${second}`
+    }
+
+    const handleDateTimeClick = () => {
+        console.log("HH")
     }
 
     useEffect(() => {
@@ -64,20 +70,21 @@ function Dashboard() {
         getFeltEarthquake()
         getRecentEarthquake()
     }, [])
-    
+
     if (!recentEarthquake || !feltEarthquake) return null;
     return (
         <div>
             <Navbar />
             <div className="Container">
                 <h1>Dashboard</h1>
+                
                 <div className="md-5">
                     <Table responsive striped bordered size="sm">
                         <thead className="Dark">
                             <tr>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Jam</th>
-                                <th scope="col">DateTime</th>
+                                <th className="Clickable" onClick={handleDateTimeClick} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
                                 <th scope="col">Koordinat</th>
                                 <th scope="col">Lintang</th>
                                 <th scope="col">Bujur</th>
@@ -111,7 +118,7 @@ function Dashboard() {
                             <tr>
                                 <th scope="col">Tanggal</th>
                                 <th scope="col">Jam</th>
-                                <th scope="col">DateTime</th>
+                                <th className="Clickable" onClick={handleDateTimeClick} scope="col">DateTime <FontAwesomeIcon className="Sort" icon={faSort} /></th>
                                 <th scope="col">Koordinat</th>
                                 <th scope="col">Lintang</th>
                                 <th scope="col">Bujur</th>
